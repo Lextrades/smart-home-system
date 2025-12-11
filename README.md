@@ -42,9 +42,10 @@ Die AI wird für dich:
 3.  **Deploy Script:** Bearbeite `deploy.sh` und trage deine Target-IP ein.
     ```bash
     # deploy.sh
-    rsync ... ./ user@deine-ip:~/dein-projekt/
+    rsync ... ./ user@<IP>:~/dein-projekt/
     ```
-4.  **Loslegen:** Drücke `Cmd+Shift+B` (Deploy) in VS Code.
+4.  **docs-scripte:** (!Bei Projekt-Umzug!), tausche `your.domain.com` & `Telegram-Name` gegen eigenen Daten & `/mnt/hdd/..` gegen persönlichen Backup-Ordner! 
+5.  **Loslegen:** Drücke `Cmd+Shift+B` (Deploy) in VS Code.
 
 ## 🔒 Sicherheit
 *   Credentials gehören in `.env` Dateien (werden nicht committed).
