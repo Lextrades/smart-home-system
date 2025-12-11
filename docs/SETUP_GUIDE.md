@@ -47,5 +47,15 @@ Wenn du einen Stand speichern willst oder das Gerät wechselst:
 
 ## ⚡ Notfall-Befehle
 
-*   **Reset (wenn alles kaputt ist):**
+
+- *   **Reset (wenn alles kaputt ist):**
     `./deploy.sh` (überschreibt den Jetson hart mit dem Mac-Stand).
+
+## 🚑 Troubleshooting
+
+*   **"Permission Denied" Fehler:**
+    Falls Skripte oder Backups nicht laufen, gehören die Dateien vielleicht versehentlich `root`.
+    Lösung (auf dem Jetson):
+    ```bash
+    sudo chown -R $USER:$USER ~/smart-home-system
+    ```
