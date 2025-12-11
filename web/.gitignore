@@ -1,0 +1,20 @@
+# System Files
+.DS_Store
+
+# Secrets & Environment
+.env
+**/.env
+
+# Python
+__pycache__/
+*.pyc
+
+# Project Specific Ignored Files
+web/LexMe.md
+installers/cookie.txt
+installers/*.tar.gz
+
+# Runtime Data (DO NOT UPLOAD)
+backups/
+logs/
+*.log

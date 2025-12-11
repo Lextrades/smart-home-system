@@ -1,0 +1,9 @@
+{
+  "name": "jetson-docker-mcp",
+  "version": "1.0.0",
+  "type": "module",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.1",
+    "dockerode": "^3.3.5"
+  }
+}
