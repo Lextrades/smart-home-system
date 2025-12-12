@@ -7,7 +7,7 @@ Dein professioneller Workflow: **Local-First mit Private Cloud Sync**.
 ## 🚀 1. Die Arbeit beginnen
 
 1.  Öffne **Antigravity** auf deinem Mac.
-2.  Arbeitsordner: `/Users/t_lex/.gemini/antigravity/playground/velvet-gravity`.
+2.  Arbeitsordner: `/Users/<USERNAME>/.gemini/antigravity/playground/velvet-gravity`.
 
 Der Code hier ist dein **Meister-Code**. Die AI hilft dir hier beim Programmieren.
 
@@ -34,7 +34,7 @@ Wenn du einen Stand speichern willst oder das Gerät wechselst:
     *   *Das schiebt den Code permanent in das Git-Repo auf deinem Jetson.*
 
 *   **Abrufen (auf Laptop B):**
-    *   `git clone ssh://jetson@192.168.0.176/~/smart-home-system` (einmalig).
+    *   `git clone ssh://jetson@<IP>/~/smart-home-system` (einmalig).
     *   `git pull` (um Updates zu holen).
 
 ## 🌍 Deine Private Cloud
