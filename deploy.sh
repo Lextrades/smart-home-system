@@ -1,3 +1,3 @@
 #!/bin/bash
-rsync -avz --exclude 'node_modules' --exclude '__pycache__' --exclude 'backups' --exclude '.git' --exclude '.vscode' ./ jetson@192.168.0.176:~/smart-home-system/
+rsync -avz --exclude 'node_modules' --exclude '__pycache__' --exclude 'backups' --exclude '.git' --exclude '.vscode' ./ jetson@<IP>:~/smart-home-system/
 echo "✅ Deployed to Jetson"
