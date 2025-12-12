@@ -40,7 +40,7 @@ The system is designed for **"Local Development"** directly on the Jetson via VS
 | **Web Platform** | Dashboard / Landing Page | Active (`web-platform.service`) |
 | **Bless Node** | DePIN Mining Node | Active (`b7s.service`) |
 | **Nginx** | Reverse Proxy (Port 80 -> 5000) | Active |
-| **Backup Manager** | Daily Snapshots -> HDD | Active (Cron: 02:00) |
+| **Backup Manager** | Daily Snapshots -> HDD | Active (Cron: 04:30) |
 
 ## ⚠️ Vital Commands
 
