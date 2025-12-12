@@ -43,6 +43,18 @@ Wenn du einen Stand speichern willst oder das Gerät wechselst:
 *   **Backup:** Dein nächtlicher Cronjob auf dem Jetson sichert dieses Verzeichnis automatisch auf die HDD.
 *   **Sicherheit:** Daten verlassen dein Netzwerk nur, wenn du es willst (via VPN/Domain).
 
+## ⏰ 4. Backup aktivieren (Wichtig!)
+
+Damit die Backups laufen, musst du einmalig den **Cronjob** auf dem Zielgerät (Jetson/Pi) einrichten.
+
+1.  Verbinde dich per SSH.
+2.  Öffne den Editor: `crontab -e` (⚠️ **NICHT** sudo verwenden!).
+3.  Füge folgende Zeile am Ende ein:
+    ```bash
+    0 2 * * * /home/USER/smart-home-system/bin/backup_manager.sh >> /home/USER/backup.log 2>&1
+    ```
+    *(Ersetze `USER` durch deinen Benutzernamen, z.B. `jetson`)*
+
 ---
 
 ## ⚡ Notfall-Befehle
