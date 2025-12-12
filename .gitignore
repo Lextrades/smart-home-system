@@ -24,3 +24,6 @@ backups/
 logs/
 b7s_workspace/
 installers/
+
+# Local Deployment Script (ignoring real IP version to prevent accidental commit)
+deploy.sh
