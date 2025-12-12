@@ -51,7 +51,7 @@ Damit die Backups laufen, musst du einmalig den **Cronjob** auf dem Zielgerät (
 2.  Öffne den Editor: `crontab -e` (⚠️ **NICHT** sudo verwenden!).
 3.  Füge folgende Zeile am Ende ein:
     ```bash
-    0 2 * * * /home/USER/smart-home-system/bin/backup_manager.sh >> /home/USER/backup.log 2>&1
+    30 4 * * * /home/USER/smart-home-system/bin/backup_manager.sh >> /home/USER/backup.log 2>&1
     ```
     *(Ersetze `USER` durch deinen Benutzernamen, z.B. `jetson`)*
 
