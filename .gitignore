@@ -1,0 +1,33 @@
+# Secrets (CRITICAL)
+.env
+**/.env
+*.key
+*.pem
+*.secret
+
+# Configuration Files with potential sensitive info
+wg0.conf
+client_vpn.conf
+cloudflared_config.yml
+config.yml
+
+# Temporary Files & Logs
+*.log
+logs/
+backups/
+temp_log.txt
+debug_diag.txt
+remote_backup.log
+remote_backup_v2.log
+
+# System & IDE
+.DS_Store
+.vscode/
+.idea/
+
+# Python / Node
+__pycache__/
+*.pyc
+node_modules/
+venv/
+env/
