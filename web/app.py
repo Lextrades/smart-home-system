@@ -21,7 +21,7 @@ if not os.getenv("FLASK_USERNAME") or not os.getenv("FLASK_PASSWORD"):
 
 USERNAME = os.getenv("FLASK_USERNAME")
 PASSWORD = os.getenv("FLASK_PASSWORD")
-CONTENT_DIR = os.getenv("CONTENT_DIR", "/mnt/hdd/public/lex.is-a.dev")
+CONTENT_DIR = os.getenv("CONTENT_DIR", "/mnt/hdd/public/real-x-dreams.com")
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():

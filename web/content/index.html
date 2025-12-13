@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lex | Next Level Development</title>
+    <meta name="description" content="Professional Developer & Trader. Creating next-level digital experiences.">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Outfit:wght@300;500;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="background-container">
+        <div class="stars"></div>
+        <div class="twinkling"></div>
+    </div>
+
+    <header class="glass-header">
+        <div class="container">
+            <a href="https://lex.is-a.dev/" class="logo">RealLex</a>
+            <nav>
+                <ul>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="/logout" class="btn-logout">Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="hero" class="hero-section">
+            <div class="container hero-content">
+                <div class="profile-frame">
+                    <img src="profile.jpg" alt="Profile Picture" class="profile-img">
+                    <div class="hologram-overlay"></div>
+                    <div id="LOTR"></div>
+                </div>
+                <h1 class="glitch" data-text="NEXT LEVEL">NEXT LEVEL</h1>
+                <h2 class="subtitle">Development & Trading</h2>
+                <p class="tagline">Turning complex logic into seamless reality.</p>
+                <div class="hero-actions">
+                    <a href="#contact" class="btn-primary">Get in Touch</a>
+                </div>
+            </div>
+            <div class="hero-visuals">
+                <img src="./hand-hologram.png" alt="Hologram Hand" class="hand-img">
+            </div>
+        </section>
+
+        <section id="about" class="about-section">
+            <div class="container">
+                <div class="glass-card">
+                    <h3>The Architect</h3>
+                    <p>
+                        I operate at the intersection of <strong>Programming</strong>, <strong>Analysis</strong>, and
+                        <strong>Design</strong>.
+                        With a background in high-frequency trading and automated systems, I build robust, efficient,
+                        and elegant solutions.
+                    </p>
+                    <div class="skills-cloud">
+                        <span class="skill-tag">MQL5</span>
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">Web Development</span>
+                        <span class="skill-tag">AI Integration</span>
+                        <span class="skill-tag">System Architecture</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact-section">
+            <div class="container">
+                <div class="contact-wrapper">
+                    <h2>Connect</h2>
+                    <p class="contact-email">
+                        <a href="mailto:lex@real-x-dreams.com">lex@real-x-dreams.com</a>
+                    </p>
+                    <div class="social-links">
+                        <a href="https://www.mql5.com/en/users/lextrades" target="_blank" class="social-btn"
+                            title="MQL5 Profile">
+                            <span class="icon">MQL5</span>
+                        </a>
+                        <a href="http://www.nextlevel.trading" target="_blank" class="social-btn"
+                            title="NextLevel Trading">
+                            <span class="icon">WWW</span>
+                        </a>
+                        <!-- Add more socials here if needed -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Lex. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Hidden Admin Login Modal -->
+    <div id="adminModal" class="modal hidden">
+        <div class="modal-content glass-card">
+            <span class="close-modal">&times;</span>
+            <h3>Admin Access</h3>
+            <form id="adminForm">
+                <div class="input-group">
+                    <input type="text" id="username" placeholder="Username" required>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="password" placeholder="Password" required>
+                </div>
+                <button type="submit" class="btn-primary">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

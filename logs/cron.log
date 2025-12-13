@@ -1,0 +1,8 @@
+[2025-12-11 02:00:01] === Starting Backup Process (20251211_020001) ===
+[2025-12-11 02:00:01] Phase 1: Syncing to Local Buffer (/home/jetson/smart-home-system/backups/snapshot_buffer)...
+[2025-12-11 02:00:01] Local Buffer: Smart Home System synced.
+[2025-12-11 02:00:01] Phase 2: Offloading to HDD...
+[2025-12-11 02:00:01] HDD detected at /mnt/hdd.
+[2025-12-11 02:00:10] Syncing Buffer to HDD: /mnt/hdd/Backups/Jetson_2GB/backup/backup_20251211_020001
+[2025-12-11 02:00:34] HDD Backup Successful.
+[2025-12-11 02:00:34] === Backup Complete ===

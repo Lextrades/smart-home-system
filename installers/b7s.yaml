@@ -1,0 +1,15 @@
+# ~/b7s.yaml
+# Netzwerk- und Port-Einstellungen
+port: 9527
+role: worker 
+
+# Speicher- und Laufzeiteinstellungen
+workspace: /home/jetson/b7s_workspace
+private-key: /home/jetson/private.key
+
+worker: # <--- DIESER SCHLÜSSEL IST HÖCHSTWAHRSCHEINLICH NOTWENDIG
+  runtime-path: /home/jetson/bls-runtime 
+  runtime-cli: bls-runtime
+
+boot-nodes:
+      - /ip4/143.244.211.194/tcp/9010/p2p/12D3KooWGuBya7RYHTzZmR7uLJYUXffSPuBUPKnmYSfsgwyjqFuw

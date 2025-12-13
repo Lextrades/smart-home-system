@@ -7,7 +7,7 @@ Dein professioneller Workflow: **Local-First mit Private Cloud Sync**.
 ## 🚀 1. Die Arbeit beginnen
 
 1.  Öffne **Antigravity** auf deinem Mac.
-2.  Arbeitsordner: `/Users/t_lex/.gemini/antigravity/playground/velvet-gravity`.
+2.  Arbeitsordner: `/Users/<USERNAME>/.gemini/antigravity/playground/velvet-gravity`.
 
 Der Code hier ist dein **Meister-Code**. Die AI hilft dir hier beim Programmieren.
 
@@ -34,7 +34,7 @@ Wenn du einen Stand speichern willst oder das Gerät wechselst:
     *   *Das schiebt den Code permanent in das Git-Repo auf deinem Jetson.*
 
 *   **Abrufen (auf Laptop B):**
-    *   `git clone ssh://jetson@192.168.0.176/~/smart-home-system` (einmalig).
+    *   `git clone ssh://jetson@<IP>/~/smart-home-system` (einmalig).
     *   `git pull` (um Updates zu holen).
 
 ## 🌍 Deine Private Cloud
@@ -51,7 +51,7 @@ Damit die Backups laufen, musst du einmalig den **Cronjob** auf dem Zielgerät (
 2.  Öffne den Editor: `crontab -e` (⚠️ **NICHT** sudo verwenden!).
 3.  Füge folgende Zeile am Ende ein:
     ```bash
-    0 2 * * * /home/USER/smart-home-system/bin/backup_manager.sh >> /home/USER/backup.log 2>&1
+    30 4 * * * /home/USER/smart-home-system/bin/backup_manager.sh >> /home/USER/backup.log 2>&1
     ```
     *(Ersetze `USER` durch deinen Benutzernamen, z.B. `jetson`)*
 
@@ -59,8 +59,15 @@ Damit die Backups laufen, musst du einmalig den **Cronjob** auf dem Zielgerät (
 
 ## ⚡ Notfall-Befehle
 
+*   **Testen des "HDD Missing"-Falls (Simulation):**
+    Simuliere das Fehlen der HDD **per Software**, um Datenbeschädigung zu vermeiden.
+    1.  HDD aushängen: `sudo umount /mnt/hdd`
+    1.1 HDD shutdown: `sudo shutdown -h now`
+        Strom weg & Platte abziehen.
+    2.  Backup testen: `~/smart-home-system/bin/backup_manager.sh` (Sollte Telegram-Warnung auslösen)
+    3.  HDD wieder einhängen: `sudo mount -a` (oder Jetson neu starten)
 
-- *   **Reset (wenn alles kaputt ist):**
+*   **Reset (wenn alles kaputt ist):**
     `./deploy.sh` (überschreibt den Jetson hart mit dem Mac-Stand).
 
 ## 🚑 Troubleshooting

@@ -49,42 +49,18 @@ send_notification() {
 mkdir -p "$(dirname "$LOG_FILE")"
 log_message "=== Starting Backup Process ($TIMESTAMP) ==="
 
-# 1. STRICT LOCAL BUFFER PHASE
-# We sync everything to a local directory first. This ensures we have a backup 
-# even if the HDD is missing.
-log_message "Phase 1: Syncing to Local Buffer ($BACKUP_BUFFER)..."
-mkdir -p "$BACKUP_BUFFER"
+# --- START ---
+mkdir -p "$(dirname "$LOG_FILE")"
+log_message "=== Starting Backup Process ($TIMESTAMP) ==="
 
-# Define what to backup
-# 1. The Smart Home System Directory (Scripts, Web, Logs, Local Configs)
-# 2. Key System Configs (/etc/nginx, /etc/letsencrypt, crontabs)
-# Note: Requires ROOT/Sudo for /etc usually.
+# Define Source Paths
+SRC_SYSTEM="$SYSTEM_ROOT/"
+SRC_PUBLIC="/mnt/hdd/public"
 
-RSYNC_OPTS="-a --delete --no-o --no-g" 
-# --no-o/g prevents permission errors if user mapping differs, 
-# though running as root (recommended) makes this less critical.
-
-# Sync Smart Home System (Excluding the backups folder itself to prevent loops!)
-rsync $RSYNC_OPTS --exclude 'backups' "$SYSTEM_ROOT/" "$BACKUP_BUFFER/smart-home-system/"
-if [ $? -eq 0 ]; then
-    log_message "Local Buffer: Smart Home System synced."
-else
-    log_message "ERROR: Local Buffer Smart Home System sync failed!"
-    send_notification "Backup Error" "Failed to sync system to local buffer."
-    exit 1
-fi
-
-# Sync System Configs (Best effort)
-mkdir -p "$BACKUP_BUFFER/system_etc"
-rsync $RSYNC_OPTS /etc/nginx "$BACKUP_BUFFER/system_etc/" 2>/dev/null
-rsync $RSYNC_OPTS /etc/letsencrypt "$BACKUP_BUFFER/system_etc/" 2>/dev/null
-# Add more system paths here as needed
-
-# 2. HDD OFFLOAD PHASE
-log_message "Phase 2: Offloading to HDD..."
+# Targets are defined dynamically below
 
 if mountpoint -q "$HDD_MOUNT"; then
-    log_message "HDD detected at $HDD_MOUNT."
+    log_message "✅ HDD Detected at $HDD_MOUNT. Performing DIRECT BACKUP."
     
     mkdir -p "$HDD_BACKUP_DIR"
     mkdir -p "$HDD_LOG_DIR"
@@ -92,36 +68,76 @@ if mountpoint -q "$HDD_MOUNT"; then
     CURRENT_BACKUP_PATH="${HDD_BACKUP_DIR}/backup_${TIMESTAMP}"
     LATEST_LINK="${HDD_BACKUP_DIR}/latest"
     
-    # Use link-dest for efficient snapshots against the HDD's 'latest'
+    # 1. Prepare Snapshot Link-Dest
     HDD_RSYNC_OPTS="-a --delete"
     if [ -d "$LATEST_LINK" ]; then
         HDD_RSYNC_OPTS="$HDD_RSYNC_OPTS --link-dest=$LATEST_LINK"
     fi
     
-    log_message "Syncing Buffer to HDD: $CURRENT_BACKUP_PATH"
+    log_message "Target: $CURRENT_BACKUP_PATH"
     
-    if rsync $HDD_RSYNC_OPTS "$BACKUP_BUFFER/" "$CURRENT_BACKUP_PATH/"; then
-        log_message "HDD Backup Successful."
-        
+    # 2. Sync Smart Home System (Direct to HDD)
+    # We exclude 'backups' to avoid recursion, and 'node_modules' to save space/time/inodes
+    mkdir -p "$CURRENT_BACKUP_PATH/smart-home-system"
+    rsync $HDD_RSYNC_OPTS --exclude 'backups' --exclude 'node_modules' "$SRC_SYSTEM" "$CURRENT_BACKUP_PATH/smart-home-system/"
+    
+    # 3. Sync System Configs (Direct to HDD)
+    mkdir -p "$CURRENT_BACKUP_PATH/system_etc"
+    rsync $HDD_RSYNC_OPTS /etc/nginx "$CURRENT_BACKUP_PATH/system_etc/" 2>/dev/null
+    rsync $HDD_RSYNC_OPTS /etc/letsencrypt "$CURRENT_BACKUP_PATH/system_etc/" 2>/dev/null
+    
+    # 4. Sync Public Web Content (HDD Live -> HDD Archive)
+    if [ -d "$SRC_PUBLIC" ]; then
+        mkdir -p "$CURRENT_BACKUP_PATH/hdd-public"
+        rsync $HDD_RSYNC_OPTS "$SRC_PUBLIC/" "$CURRENT_BACKUP_PATH/hdd-public/"
+        log_message "Public Content archived."
+    fi
+    
+    # 5. Finalize
+    if [ $? -eq 0 ]; then
         # Update Symlink
         rm -f "$LATEST_LINK"
         ln -s "$CURRENT_BACKUP_PATH" "$LATEST_LINK"
         
-        # Archive Log
+        log_message "HDD Backup SUCCESSFUL."
+        # We don't send a Telegram message for every success to reduce noise, 
+        # unless you want to uncomment the next line:
+        # send_notification "Backup Success" "Direct HDD backup completed."
+        
+        # Log Maintenance
         cp "$LOG_FILE" "$HDD_LOG_DIR/backup_${TIMESTAMP}.log"
         
-        # Optional: Prune Local Buffer? 
-        # No, we keep the buffer as the "latest on-device state".
-        
+        # CLEANUP: Since we have a good HDD backup, we can (optionally) clean the local buffer 
+        # to ensure SD card stays empty. 
+        if [ -d "$BACKUP_BUFFER" ]; then
+             rm -rf "$BACKUP_BUFFER"
+             log_message "Maintenance: Local buffer cleared."
+        fi
     else
-        log_message "CRITICAL: Sync to HDD failed."
-        send_notification "Backup Failure" "Rsync to HDD failed even though mounted."
+        log_message "ERROR: Rsync reported errors."
+        send_notification "Backup Error" "Rsync errors during HDD backup."
     fi
 
 else
-    log_message "WARNING: HDD NOT DETECTED at $HDD_MOUNT."
-    log_message "Backup remains safely in Local Buffer: $BACKUP_BUFFER"
-    send_notification "HDD Missing" "Backup completed to LOCAL BUFFER only. HDD was not found."
+    # --- FALLBACK MODE (HDD MISSING) ---
+    log_message "⚠️ WARNING: HDD NOT DETECTED at $HDD_MOUNT."
+    log_message "Executing FALLBACK backup to Local Buffer ($BACKUP_BUFFER)."
+    
+    mkdir -p "$BACKUP_BUFFER"
+    
+    # RSYNC_OPTS for local (no hardlinks needed usually, just mirror)
+    LOCAL_RSYNC_OPTS="-a --delete --no-o --no-g"
+    
+    # Sync System
+    rsync $LOCAL_RSYNC_OPTS --exclude 'backups' --exclude 'node_modules' "$SRC_SYSTEM" "$BACKUP_BUFFER/smart-home-system/"
+    
+    if [ $? -eq 0 ]; then
+        log_message "Local Buffer Sync: OK"
+        send_notification "HDD Missing" "Backup performed to LOCAL SD CARD only. Please check HDD."
+    else
+        log_message "CRITICAL: Local Buffer Sync FAILED (Disk full?)"
+        send_notification "Backup CRITICAL" "HDD missing AND Local SD card failed (full?). System unprotected."
+    fi
 fi
 
 log_message "=== Backup Complete ==="
