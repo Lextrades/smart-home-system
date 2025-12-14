@@ -17,7 +17,7 @@ else
     exit 1
 fi
 
-rsync -avz --exclude 'node_modules' --exclude '__pycache__' --exclude 'backups' --exclude '.git' --exclude '.vscode' --exclude 'web/content' ./ "${JETSON_USER}@${IP}:${JETSON_ROOT}"
+rsync -avz --delete --exclude 'node_modules' --exclude '__pycache__' --exclude 'backups' --exclude '.git' --exclude '.vscode' --exclude 'web/content' ./ "${JETSON_USER}@${IP}:${JETSON_ROOT}"
 ssh "${JETSON_USER}@${IP}" "mkdir -p ${HDD_PUBLIC_ROOT}"
-rsync -avz web/content/ "${JETSON_USER}@${IP}:${HDD_PUBLIC_ROOT}/"
+rsync -avz --delete web/content/ "${JETSON_USER}@${IP}:${HDD_PUBLIC_ROOT}/"
 echo "✅ Deployed to ${IP} and synced to HDD"
