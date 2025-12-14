@@ -9,6 +9,7 @@
 - [x] Verify/Update Backup Logic (Optimize: Direct HDD-to-HDD sync) <!-- id: 18 -->
 - [x] Verify Telegram Notifications (Logic in `backup_manager.sh` for HDD fail) <!-- id: 4 -->
 - [x] Check Cloudflared Tunnel Status (`active`) <!-- id: 5 -->
+- [x] Cleanup Legacy Git Repo on Jetson (Frees SD space) <!-- id: 19 -->
 
 ## Infrastructure Evolution
 - [x] Plan Tailscale Migration (Secure, private, works with DS-Lite) <!-- id: 6 -->
@@ -16,7 +17,7 @@
     - [x] Uninstall manual WireGuard (Services stopped) <!-- id: 8 -->
     - [x] Install Tailscale on Jetson <!-- id: 9 -->
     - [x] Authenticate & Connect (Active: jetlex-0) <!-- id: 10 -->
-    - [x] Verify Access via Tailscale IP (100.77.57.25) <!-- id: 11 -->
+    - [x] Verify Access via Tailscale IP (<TAILSCALE_IP>) <!-- id: 11 -->
 
 ## Service Refinement
 - [x] Configure Cloudflare Tunnel (Restore Public Sites, Exclude Files) <!-- id: 13 -->

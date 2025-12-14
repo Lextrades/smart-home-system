@@ -1,4 +1,23 @@
 #!/bin/bash
-rsync -avz --exclude 'node_modules' --exclude '__pycache__' --exclude 'backups' --exclude '.git' --exclude '.vscode' ./ jetson@192.168.0.176:~/smart-home-system/
-ssh jetson@192.168.0.176 "mkdir -p /mnt/hdd/public/real-x-dreams.com && rsync -av ~/smart-home-system/web/content/ /mnt/hdd/public/real-x-dreams.com/"
-echo "✅ Deployed to Jetson and synced to HDD"
+
+# Safety Check: Ensure Clean Git State
+if [[ -n $(git status --porcelain) ]]; then
+    echo "❌ ERROR: Uncommitted changes detected!"
+    echo "Please commit your changes before deploying to ensure you have a restore point."
+    echo "Run: 'git commit -am \"Description\"' then try again."
+    exit 1
+fi
+
+# Load Configuration
+if [ -f ".deploy_config" ]; then
+    source ".deploy_config"
+else
+    echo "❌ ERROR: .deploy_config not found!"
+    echo "Please create '.deploy_config' with JETSON_USER, IP, JETSON_ROOT, and HDD_PUBLIC_ROOT."
+    exit 1
+fi
+
+rsync -avz --exclude 'node_modules' --exclude '__pycache__' --exclude 'backups' --exclude '.git' --exclude '.vscode' --exclude 'web/content' ./ "${JETSON_USER}@${IP}:${JETSON_ROOT}"
+ssh "${JETSON_USER}@${IP}" "mkdir -p ${HDD_PUBLIC_ROOT}"
+rsync -avz web/content/ "${JETSON_USER}@${IP}:${HDD_PUBLIC_ROOT}/"
+echo "✅ Deployed to ${IP} and synced to HDD"

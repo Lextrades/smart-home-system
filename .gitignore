@@ -10,6 +10,7 @@ wg0.conf
 client_vpn.conf
 cloudflared_config.yml
 config.yml
+.deploy_config
 
 # Temporary Files & Logs
 *.log

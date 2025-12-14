@@ -1,0 +1,9 @@
+# Deployment Configuration Template
+# 1. Copy this file to '.deploy_config'
+# 2. Replace the values below with your specific setup
+# 3. .deploy_config is ignored by Git, so your secrets stay safe.
+
+JETSON_USER=jetson
+IP=192.168.1.XXX
+JETSON_ROOT=~/smart-home-system/
+HDD_PUBLIC_ROOT=/mnt/hdd/public/your.domain.com
