@@ -22,7 +22,7 @@ Du hast keinen Jetson? Kein Problem. Nutze Antigravity, um das Projekt umzubauen
 1.  **Lade das Projekt:** Clone dieses Repo auf deinen Mac/PC.
 2.  **Starte Antigravity:** Öffne den Ordner im Agent-Editor.
 3.  **Prompt an die AI:**
-    > "Ich möchte dieses Projekt auf einem [Raspberry Pi 5] mit [Ubuntu 24.04] deployen. Bitte analysiere `deploy.sh` und `tasks.json` und pass sie an. Ersetze Jetson-spezifische Docker-Container durch generische ARM64-Versionen."
+    > "Ich möchte dieses Projekt auf einem [Raspberry Pi 5] mit [Ubuntu 24.04] deployen. Bitte analysiere `docs` und `deploy.sh` und `tasks.json` und pass sie an. Ersetze Jetson-spezifische Docker-Container durch generische ARM64-Versionen."
 
 Die AI wird für dich:
 *   Scripts umschreiben (`rsync` Ziel-IPs ändern).
@@ -39,13 +39,13 @@ Die AI wird für dich:
 ### 2. Schnelleinrichtung
 1.  **SSH Config:** Stelle sicher, dass du dich per SSH verbinden kannst (`ssh user@ip`).
 2.  **Repo Clonen:** `git clone <URL>`.
-3.  **Deploy Script:** Bearbeite `deploy.sh` und trage deine Target-IP ein.
+4.  **docs-scripte #0-#4:** Tausche `your.domain.com` & `Telegram-Name` gegen eigenen Daten & `/mnt/hdd/..` gegen persönlichen Backup-Ordner!
+5.  **Deploy Script:** Bearbeite `deploy_config` und trage deine Target-IP ein.
     ```bash
     # deploy.sh
     rsync ... ./ user@<IP>:~/dein-projekt/
     ```
-4.  **docs-scripte:** (!Bei Projekt-Umzug!), tausche `your.domain.com` & `Telegram-Name` gegen eigenen Daten & `/mnt/hdd/..` gegen persönlichen Backup-Ordner! 
-5.  **Loslegen:** Drücke `Cmd+Shift+B` (Deploy) in VS Code.
+6.  **Loslegen:** Drücke `Cmd+Shift+B` (Deploy) in VS Code.
 
 ## 🔒 Sicherheit
 *   Credentials gehören in `.env` Dateien (werden nicht committed).
