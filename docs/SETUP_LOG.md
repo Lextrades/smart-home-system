@@ -67,7 +67,7 @@ crontab -e
 ```
 -> Adjust line: 
 ```
-0 2 * * * /home/jetson/jetson-osx/backup_manager.sh >> /home/jetson/backup.log >
+30 4 * * * /home/jetson/jetson-osx/backup_manager.sh >> /home/jetson/backup.log >
 ```
 The first two numbers determine the time:
 
