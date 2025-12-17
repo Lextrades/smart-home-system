@@ -5,5 +5,5 @@
 
 JETSON_USER=jetson
 IP=192.168.1.XXX
-JETSON_ROOT=~/smart-home-system/
+JETSON_ROOT=/home/jetson/smart-home-system
 HDD_PUBLIC_ROOT=/mnt/hdd/public/your.domain.com
