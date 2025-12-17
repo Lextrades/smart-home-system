@@ -35,6 +35,6 @@ rm velvet-gravity.bundle
 
 # 4. Restart Docker Containers
 echo "🐳 Building & Restarting Docker Containers..."
-ssh "${JETSON_USER}@${IP}" "cd ${JETSON_ROOT} && docker-compose up -d --build"
+ssh "${JETSON_USER}@${IP}" "cd ${JETSON_ROOT} && docker compose up -d --build"
 
 echo "✅ Deployed to ${IP}, synced to HDD, Updated Repo Backup, and Restarted Docker!"
