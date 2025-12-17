@@ -128,15 +128,19 @@ else
     # RSYNC_OPTS for local (no hardlinks needed usually, just mirror)
     LOCAL_RSYNC_OPTS="-a --delete --no-o --no-g"
     
-    # Sync System
-    rsync $LOCAL_RSYNC_OPTS --exclude 'backups' --exclude 'node_modules' "$SRC_SYSTEM" "$BACKUP_BUFFER/smart-home-system/"
+    # Sync System with detailed error capturing
+    RSYNC_OUTPUT=$(rsync $LOCAL_RSYNC_OPTS --exclude 'backups' --exclude 'node_modules' "$SRC_SYSTEM" "$BACKUP_BUFFER/smart-home-system/" 2>&1)
+    RSYNC_EXIT=$?
     
-    if [ $? -eq 0 ]; then
+    if [ $RSYNC_EXIT -eq 0 ]; then
         log_message "Local Buffer Sync: OK"
         send_notification "HDD Missing" "Backup performed to LOCAL SD CARD only. Please check HDD."
     else
-        log_message "CRITICAL: Local Buffer Sync FAILED (Disk full?)"
-        send_notification "Backup CRITICAL" "HDD missing AND Local SD card failed (full?). System unprotected."
+        log_message "CRITICAL: Local Buffer Sync FAILED (Exit Code: $RSYNC_EXIT)"
+        log_message "Error Detail: $RSYNC_OUTPUT"
+        # Send first 200 chars of error to Telegram
+        ERROR_MSG=$(echo "$RSYNC_OUTPUT" | head -c 200)
+        send_notification "Backup FAILED ($RSYNC_EXIT)" "HDD missing AND Local Sync failed.\nError: $ERROR_MSG"
     fi
 fi
 
