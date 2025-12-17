@@ -33,4 +33,8 @@ ssh "${JETSON_USER}@${IP}" "mkdir -p /mnt/hdd/Backups/Jetson_2GB"
 rsync -avz --progress velvet-gravity.bundle "${JETSON_USER}@${IP}:/mnt/hdd/Backups/Jetson_2GB/git_repo_latest.bundle"
 rm velvet-gravity.bundle
 
-echo "✅ Deployed to ${IP}, synced to HDD, and updated Private Repo Backup."
+# 4. Restart Docker Containers
+echo "🐳 Building & Restarting Docker Containers..."
+ssh "${JETSON_USER}@${IP}" "cd ${JETSON_ROOT} && docker-compose up -d --build"
+
+echo "✅ Deployed to ${IP}, synced to HDD, Updated Repo Backup, and Restarted Docker!"

@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  smart-home-web:
+    build: ./web
+    container_name: smart-home-web
+    ports:
+      - "5000:5000"
+    volumes:
+      # Mount the HDD content directory (Read-only optional, but RW for flexibility)
+      - /mnt/hdd/public/real-x-dreams.com:/mnt/hdd/public/real-x-dreams.com
+      # Mount the .env file from the host so secrets aren't baked into the image
+      - ./web/.env:/app/.env
+    restart: unless-stopped
+    environment:
+      # Explicitly set content dir if needed, though app.py has this default
+      - CONTENT_DIR=/mnt/hdd/public/real-x-dreams.com
