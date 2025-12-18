@@ -12,11 +12,15 @@ cloudflared_config.yml
 config.yml
 .deploy_config
 
-# Temporary Files & Logs
-*.log
-logs/
+# Backups and Local Logs
+*.bundle
 backups/
-temp_log.txt
+logs/*.log
+
+# Private Mining Projects
+mining/
+nicehash/
+.txt
 debug_diag.txt
 remote_backup.log
 remote_backup_v2.log
