@@ -50,15 +50,10 @@ This document serves as the "Master File" for the technical infrastructure of th
 | Service | Status | Path / Command | Description |
 | :--- | :--- | :--- | :--- |
 | **Web Platform** | Dev | `~/smart-home-system/web/app.py` | Flask Login/Link Dashboard (Future UI). |
-| **Mining (Bless)**| Active | `~/bls-runtime` / `systemctl b7s` | Blockless Node (Test project). See [Config Note](#configuration-notes). |
 | **Docker** | Active | `install_docker.sh` | Container runtime for n8n/Ollama. |
 | **Ollama** | Installed | `install_ollama.sh` | Local LLM inference. |
 | **Nginx** | Active | `/etc/nginx` | Reverse Proxy for Web Platform. |
 | **n8n** | Configured | `n8n-stack.yml` | Workflow Automation. |
-
-### Configuration Notes
-- **Mining (Bless)**: The service is configured to look for config at `~/b7s.yaml`. Since we moved the file to `~/smart-home-system/installers/b7s.yaml`, a **Symlink** was created:
-  `ln -s ~/smart-home-system/installers/b7s.yaml ~/b7s.yaml`
 
 ## 5. Development Workflow
 
@@ -72,10 +67,6 @@ This document serves as the "Master File" for the technical infrastructure of th
 ```bash
 # Manual Backup Run
 sudo /home/jetson/smart-home-system/bin/backup_manager.sh
-
-# Stop/Disable Mining
-sudo systemctl stop b7s
-sudo systemctl disable b7s
 
 # Check Logs
 tail -f ~/smart-home-system/logs/cron.log
