@@ -14,16 +14,19 @@ config.yml
 
 # Backups and Local Logs
 *.bundle
-backups/
 logs/*.log
 
 # Private Mining Projects
 mining/
 nicehash/
-.txt
+
+# Logs
+*.log
+logs/
 debug_diag.txt
 remote_backup.log
 remote_backup_v2.log
+temp_log.txt
 
 # System & IDE
 .DS_Store
