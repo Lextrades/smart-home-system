@@ -19,6 +19,7 @@ logs/*.log
 # Private Mining Projects
 mining/
 nicehash/
+private/
 
 # Logs
 *.log
