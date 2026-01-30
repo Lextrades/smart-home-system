@@ -29,19 +29,17 @@
 ## 📑 Documentation Standard (Project Policy)
 To ensure long-term maintainability and separation of concerns, the following structure is mandatory:
 
-### 1. Phased System Planning (Public)
-Located in `docs/#5_system/`. Files follow a numeric prefix representing expansion stages:
-*   `0_system_infrastructure_plan.md`: Baseline setup, HDD, Backups, Tunnel.
-*   `1_system_voice-bridge_plan.md`: Next stage (Moltbot / Voice-Bridge).
-*   `system_structure.md`: General architecture overview (publicly safe).
+### 1. Living Documentation (Updates allowed)
+*   **`#0_project_status.md`**: High-level checklist and current project state.
+*   **`docs/#5_system/`**: Living playground for expansion stages.
+    *   `0_system_infrastructure_plan.md`: Baseline infrastructure status.
+    *   `n-system_playground_plan.md`: Current or planned stage (e.g., `1_system_voice-bridge_plan.md`).
 
-### 2. Private System Details (Local-Only)
+### 2. Historical Foundation (Unchanged)
+These files map the project's roots and should remain as static records:
+*   **`#1_SETUP_GUIDE.md`**: Strategic workflow (Mac -> Jetson).
+*   **`#1.1_SETUP_LOG.md`**: Technical history of the initial builds.
+
+### 3. Private System Details (Local-Only)
 Located in `private/system_architecture.md`. **MUST NEVER BE COMMITTED TO GIT.**
-Contains:
-*   Static Local IPs & Specific Hardware Details (Serials, HDD Brands).
-*   Sensitive mount logic and swap details.
-*   Service status and internal access links.
-
-### 3. Workflow Management
-*   `project_status.md`: High-level checklist and project state.
-*   `SETUP_LOG.md`: Detailed history of technical changes.
+Contains specific hardware details, IPs, and sensitive service status.
