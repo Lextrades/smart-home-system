@@ -25,3 +25,23 @@
     - [x] Restart `cloudflared` service <!-- id: 15 -->
 - [x] Debug `real-x-dreams.com` 404 Error (Backend OK, DNS fix proposed) <!-- id: 16 -->
 - [x] Configure Nginx Proxy for `files` (Port 80 active) <!-- id: 17 -->
+
+## 📑 Documentation Standard (Project Policy)
+To ensure long-term maintainability and separation of concerns, the following structure is mandatory:
+
+### 1. Phased System Planning (Public)
+Located in `docs/#5_system/`. Files follow a numeric prefix representing expansion stages:
+*   `0_system_infrastructure_plan.md`: Baseline setup, HDD, Backups, Tunnel.
+*   `1_system_voice-bridge_plan.md`: Next stage (Moltbot / Voice-Bridge).
+*   `system_structure.md`: General architecture overview (publicly safe).
+
+### 2. Private System Details (Local-Only)
+Located in `private/system_architecture.md`. **MUST NEVER BE COMMITTED TO GIT.**
+Contains:
+*   Static Local IPs & Specific Hardware Details (Serials, HDD Brands).
+*   Sensitive mount logic and swap details.
+*   Service status and internal access links.
+
+### 3. Workflow Management
+*   `project_status.md`: High-level checklist and project state.
+*   `SETUP_LOG.md`: Detailed history of technical changes.
