@@ -43,6 +43,11 @@ Wenn du einen Stand speichern willst oder das Gerät wechselst:
 *   **Backup:** Dein nächtlicher Cronjob auf dem Jetson sichert dieses Verzeichnis automatisch auf die HDD.
 *   **Sicherheit:** Daten verlassen dein Netzwerk nur, wenn du es willst (via VPN/Domain).
 
+### Externer Zugriff (Remote)
+Für den Zugriff von unterwegs gibt es zwei sichere Wege:
+*   **Tailscale (VPN):** Ein privates Netzwerk zwischen deinen Geräten (IPs siehe `private/system_architecture.md`).
+*   **Cloudflare Tunnel:** Zugriff über deine Domain (Konfiguration siehe `private/` Dokumentation).
+
 ## ⏰ 4. Backup aktivieren (Wichtig!)
 
 Damit die Backups laufen, musst du einmalig den **Cronjob** auf dem Zielgerät (Jetson/Pi) einrichten.
